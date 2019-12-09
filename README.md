@@ -1,5 +1,5 @@
 # C++
-University courses \n
-    - Intro to programming \n
-    - OOP \n
-    - Data Structures and Algorithms \n
+University courses 
+    - Intro to programming 
+    - OOP 
+    - Data Structures and Algorithms 
