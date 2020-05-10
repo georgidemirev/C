@@ -1,0 +1,61 @@
+﻿  stdafx.cpp
+  Wallet.cpp
+  User.cpp
+  Store.cpp
+d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\store.cpp(151): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(257): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(253): note: while compiling class template member function 'void Vector<Product>::push_back(const T &)'
+          with
+          [
+              T=Product
+          ]
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\store.cpp(33): note: see reference to function template instantiation 'void Vector<Product>::push_back(const T &)' being compiled
+          with
+          [
+              T=Product
+          ]
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\shoppingcart.h(10): note: see reference to class template instantiation 'Vector<Product>' being compiled
+  ShoppingCart.cpp
+d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(231): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(227): note: while compiling class template member function 'void Vector<Product>::remove(const T &)'
+          with
+          [
+              T=Product
+          ]
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\shoppingcart.cpp(48): note: see reference to function template instantiation 'void Vector<Product>::remove(const T &)' being compiled
+          with
+          [
+              T=Product
+          ]
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\shoppingcart.h(10): note: see reference to class template instantiation 'Vector<Product>' being compiled
+d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(257): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(253): note: while compiling class template member function 'void Vector<Product>::push_back(const T &)'
+          with
+          [
+              T=Product
+          ]
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\shoppingcart.cpp(39): note: see reference to function template instantiation 'void Vector<Product>::push_back(const T &)' being compiled
+          with
+          [
+              T=Product
+          ]
+  Main.cpp
+d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(257): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\vector.h(253): note: while compiling class template member function 'void Vector<Product>::push_back(const T &)'
+          with
+          [
+              T=Product
+          ]
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\main.cpp(24): note: see reference to function template instantiation 'void Vector<Product>::push_back(const T &)' being compiled
+          with
+          [
+              T=Product
+          ]
+  d:\visual studio\c++ github\university-programming\oop (4th semester)\oop2\shoppingcart.h(10): note: see reference to class template instantiation 'Vector<Product>' being compiled
+  Product.cpp
+  Monitor.cpp
+  Laptop.cpp
+  Fridge.cpp
+  Generating Code...
+  OOP2.vcxproj -> D:\Visual Studio\C++ GitHub\University-Programming\OOP (4th semester)\x64\Debug\OOP2.exe
+  OOP2.vcxproj -> D:\Visual Studio\C++ GitHub\University-Programming\OOP (4th semester)\x64\Debug\OOP2.pdb (Full PDB)

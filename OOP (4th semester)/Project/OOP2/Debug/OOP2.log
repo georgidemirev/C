@@ -1,0 +1,10 @@
+﻿  Main.cpp
+d:\visual studio\uni\homework1\oop2\vector.h(181): warning C4018: '<=': signed/unsigned mismatch
+  d:\visual studio\uni\homework1\oop2\vector.h(180): note: while compiling class template member function 'void Vector<Product>::reserve(int)'
+  d:\visual studio\uni\homework1\oop2\vector.h(255): note: see reference to function template instantiation 'void Vector<Product>::reserve(int)' being compiled
+  d:\visual studio\uni\homework1\oop2\vector.h(112): note: while compiling class template member function 'Vector<Product>::Vector(void)'
+  d:\visual studio\uni\homework1\oop2\main.cpp(13): note: see reference to function template instantiation 'Vector<Product>::Vector(void)' being compiled
+  d:\visual studio\uni\homework1\oop2\shoppingcart.h(10): note: see reference to class template instantiation 'Vector<Product>' being compiled
+d:\visual studio\uni\homework1\oop2\vector.h(185): warning C4018: '<': signed/unsigned mismatch
+  OOP2.vcxproj -> D:\Visual Studio\Uni\homework1\Debug\OOP2.exe
+  OOP2.vcxproj -> D:\Visual Studio\Uni\homework1\Debug\OOP2.pdb (Full PDB)
