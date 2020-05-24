@@ -1,22 +1,23 @@
 #pragma once
 #include "Product.h"
 
+
 class Laptop : public Product {
 private:
 
 	double inches;
 
-	char* gpu;
+	string gpu;
 
-	char* cpu;
+	string cpu;
 
 public:
 
-	Laptop(char* const name, char* const category, int const quantity,
+	Laptop(string const name, string const category, int const quantity,
 		double const price, double const inches,
-		char* const gpu, char* const cpu);
+		string const gpu, string const cpu);
 
-	~Laptop();
+	virtual ~Laptop();
 
 	Laptop(const Laptop &other);
 
@@ -24,7 +25,9 @@ public:
 
 	double getInches() const;
 
-	char* getCpu() const;
+	string getCpu() const;
 
-	char* getGpu() const;
+	string getGpu() const;
+
+	void print() const;
 };

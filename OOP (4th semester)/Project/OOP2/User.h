@@ -5,37 +5,39 @@
 class User {
 private:
 
-	char* username;
+	string username;
 
-	char* password;
+	string password;
 
 	int id;
 
-	ShoppingCart shoppingCart;
+	ShoppingCart *shoppingCart;
 
-	Wallet wallet;
+	Wallet *wallet;
 
 public:
 
 	User();
 
-	User(char* const username, char* const password, int const id);
+	User(string const username, string const password, int const id);
 
-	~User();
+	virtual ~User();
 
 	User(const User &other);
 
 	User& operator=(const User& other);
 
+	bool User::operator==(const User& o1) const;
+
 	double getMoneyInWallet() const;
 
-	char* getUsername() const;
+	string getUsername() const;
 
-	char* getPassword() const;
+	string getPassword() const;
 
-	Wallet getWallet() const;
+	Wallet* getWallet() const;
 
-	ShoppingCart getShoppingCart() const;
+	ShoppingCart* getShoppingCart() const;
 
 	int getId() const;
 };

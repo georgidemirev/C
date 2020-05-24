@@ -1,33 +1,33 @@
 #pragma once
 #include "Product.h"
-#include "Vector.h"
+#include <vector>
 
-
-// removing of products is not available in this version of the project
 class ShoppingCart {
 private:
 
-	Vector<Product> products;
+	vector<Product*> products;
 
 public:
 
 	ShoppingCart();
 
-	~ShoppingCart();
+	virtual ~ShoppingCart();
 
 	ShoppingCart(const ShoppingCart &other);
 
 	ShoppingCart& operator=(const ShoppingCart& other);
 
-	Product* findProductByName(char* const name);
+	Product* findProductByName(string const name);
 
-	void addProduct(Product const product);
+	void addProduct(Product* const product);
 
-	void removeProduct(char* name);
+	void removeProduct(string const name);
 
 	void clearShoppingCart();
 
 	double getCartPrice() const;
 
-	Vector<Product> getProducts() const;
+	vector<Product*> getProducts() const;
+
+	void printAllProducts() const;
 };

@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "Monitor.h"
+#include <iostream>
 
-Monitor::Monitor(char* const name, char* const category, int const quantity,
-	double const price, double const inches, char* const resolution)
+using namespace std;
+
+Monitor::Monitor(string const name, string const category, int const quantity,
+	double const price, double const inches, string const resolution)
 	: Product(name, category, quantity, price), inches(inches), resolution(resolution) {}
 
 Monitor::~Monitor() {
@@ -24,7 +27,13 @@ double Monitor::getInches() const
 	return this->inches;
 }
 
-char* Monitor::getResolution() const
+string Monitor::getResolution() const
 {
 	return this->resolution;
+}
+
+void Monitor::print() const
+{
+	Product::print();
+	cout << ", inches: " << inches << ", resolution: " << resolution;
 }

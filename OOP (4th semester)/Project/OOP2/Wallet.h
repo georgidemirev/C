@@ -1,6 +1,5 @@
 #pragma once
 
-
 class Wallet {
 private:
 
@@ -10,7 +9,7 @@ public:
 
 	Wallet();
 
-	~Wallet();
+	virtual ~Wallet();
 
 	Wallet(const Wallet &other);
 

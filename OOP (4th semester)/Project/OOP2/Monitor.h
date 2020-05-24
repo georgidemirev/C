@@ -1,20 +1,21 @@
 #pragma once
 #include "Product.h"
 
+
 class Monitor: public Product {
 private:
 
 	double inches;
 
-	char* resolution;
+	string resolution;
 
 public:
 
-	Monitor(char* const name, char* const category,
+	Monitor(string const name, string const category,
 		int const quantity, double const price,
-		double const inches, char* const resolution);
+		double const inches, string const resolution);
 
-	~Monitor();
+	virtual ~Monitor();
 
 	Monitor(const Monitor &other);
 
@@ -22,5 +23,7 @@ public:
 
 	double getInches() const;
 
-	char* getResolution() const;
+	string getResolution() const;
+
+	void print() const;
 };

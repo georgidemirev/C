@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "Laptop.h"
+#include <iostream>
 
-Laptop::Laptop(char* const name, char* const category, int const quantity,
-	double const price, double const inches, char* const gpu, char* const cpu)
+using namespace std;
+
+Laptop::Laptop(string const name, string const category, int const quantity,
+	double const price, double const inches, string const gpu, string const cpu)
 	: Product(name, category, quantity, price), inches(inches), gpu(gpu), cpu(cpu) {}
 
 Laptop::~Laptop() {};
@@ -24,12 +27,18 @@ double Laptop::getInches() const
 	return this->inches;
 }
 
-char* Laptop::getCpu() const
+string Laptop::getCpu() const
 {
 	return this->cpu;
 }
 
-char* Laptop::getGpu() const
+string Laptop::getGpu() const
 {
 	return this->gpu;
+}
+
+void Laptop::print() const
+{
+	Product::print();
+	cout << ", inches: " << inches << ", gpu: " << gpu << ", cpu: " << cpu;
 }

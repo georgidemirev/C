@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "Fridge.h"
+#include <iostream>
 
-Fridge::Fridge(char* const name, char* const category, int const quantity,
-	double const price, double const height, double const watComwatConsumptionsumption)
+using namespace std;
+
+Fridge::Fridge(string const name, string const category, int const quantity,
+	double const price, double const height, double const watConsumption)
 	: Product(name, category, quantity, price), height(height), watConsumption(watConsumption) {}
 
 Fridge::~Fridge() {};
@@ -26,4 +29,10 @@ double Fridge::getHeight() const
 double Fridge::getWatConsumption() const
 {
 	return this->watConsumption;
+}
+
+void Fridge::print() const
+{
+	Product::print();
+	cout << ", height: " << height << ", watConsumption: " << watConsumption;
 }

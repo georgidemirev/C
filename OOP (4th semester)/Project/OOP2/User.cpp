@@ -2,12 +2,24 @@
 #include "User.h"
 #include "ShoppingCart.h"
 
-User::User() : username("username"), password("password"), id(-1) {}
+User::User() : username("username"), password("password"), id(-1) 
+{
+	this->shoppingCart = new ShoppingCart();
+	this->wallet = new Wallet();
+}
 
-User::User(char* const username, char* const password,int const id) :
-	username(username), password(password), id(id) {}
+User::User(string const username, string const password,int const id) :
+	username(username), password(password), id(id)
+{
+	this->shoppingCart = new ShoppingCart();
+	this->wallet = new Wallet();
+}
 
-User::~User() {};
+User::~User() 
+{
+	delete shoppingCart;
+	delete wallet;
+};
 
 User::User(const User &other):username(other.getUsername()),
 password(other.getPassword()), id(other.getId()), 
@@ -23,27 +35,36 @@ User& User::operator=(const User& other)
 	return *this;
 };
 
+bool User::operator==(const User& o1) const
+{
+	if (this->username.compare(o1.getUsername()) == 0)
+	{
+		return true;
+	};
+	return false;
+};
+
 double User::getMoneyInWallet() const 
 {
-	return this->wallet.getMoney();
+	return (*this->wallet).getMoney();
 }
 
-char* User::getUsername() const
+string User::getUsername() const
 {
 	return this->username;
 }
 
-char* User::getPassword() const
+string User::getPassword() const
 {
 	return this->password;
 }
 
-Wallet User::getWallet() const
+Wallet* User::getWallet() const
 {
 	return this->wallet;
 }
 
-ShoppingCart User::getShoppingCart() const
+ShoppingCart* User::getShoppingCart() const
 {
 	return this->shoppingCart;
 }

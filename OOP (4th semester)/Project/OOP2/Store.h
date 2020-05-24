@@ -2,39 +2,34 @@
 #include "stdafx.h"
 #include "User.h"
 #include "Product.h"
-#include "Vector.h"
+#include <vector>
 
 class Store {
 private:
 
-	char* name;
+	string name;
 
-	Vector<User> users;
+	vector<User*> users;
 
-	Vector<Product> products;
-
-	bool isLoggedIn; // to store information if there is logged user
-					// will be checked before everything that needs a logged user
+	vector<Product*> products;
 	
 	// helping methods:
 
-	User* findUserByUsername(char* const username); // will be used in logIn method to validate that user exists
+	User* findUserByUsername(string const username);
 
-	Product* findProductByName(char* const name);
+	Product* findProductByName(string const name);
 
-	bool doesUserExistByUsername(char* const username); // will be used to register users only with unique usernames
+	bool doesUserExistByUsername(string const username); // will be used to register users only with unique usernames
 
 	bool doesUserExistById(int id); // will be used to register users only with unique ids
 
-	bool doesProductExistByName(char* const name); // will be used in addProductToCart to check if that product exists
+	bool doesProductExistByName(string const name); // will be used in addProductToCart to check if that product exists
 
-	bool hasEnoughMoney(User const user, double const money); // checks if user has enough money in the wallet to buy everything from the shopping cart
-
-	//TODO: in future the user will be able to decide what he wants to buy from the cart.
+	bool hasEnoughMoney(string const username, double const money); // checks if user has enough money in the wallet to buy everything from the shopping cart
 
 public:
 
-	Store(char* const name);
+	Store(string const name);
 
 	~Store();
 
@@ -42,33 +37,33 @@ public:
 
 	Store& operator=(const Store& other);
 
-	void addProduct(Product const product);
+	void addProduct(Product* const product);
 
-	void registerUser(char* const username, char* const password,int const id);
+	void removeProduct(string const name);
 
-	void logIn(char* const username, char* const password);
+	void registerUser(string const username, string const password, int const id);
 
-	void logOut();
+	void removeUser(string const username);
 
-	void addProductToCart(User const user, char* const name, int const quantity);
+	void addProductToCart(string const username, string const name, int const quantity);
 
-	void removeProductFromCart(User const user, char* const name);
+	void removeProductFromCart(string const username, string const product);
 
-	void printCart(User const user) const;
+	void printCart(string const user);
 
-	void buyEverythingFromCart(User const user);
+	void buyEverythingFromCart(string const username);
 
 	void printAllProducts() const;
 
-	void printProductsByCategory(char* const category) const;
+	void printProductsByCategory(string const category) const;
 
 	void printProductsByPrice(double const price) const;
 
-	void printProductsByName(char* const name) const;
+	void printProductsByName(string const name) const;
 
-	char* getName() const;
+	string getName() const;
 
-	Vector<User> getUsers() const;
+	vector<User*> getUsers() const;
 
-	Vector<Product> getProducts() const;
+	vector<Product*> getProducts() const;
 };

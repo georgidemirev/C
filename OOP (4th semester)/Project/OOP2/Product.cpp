@@ -4,16 +4,9 @@
 #include <iostream>
 using namespace std;
 
-
-// This class stores all types of product, because where we need one type of product,
-// there we need other types also.
-
-
-// Implementation for Product
-
 Product::Product() :name("default"), category("default"), quantity(0), price(0) {};
 
-Product::Product(char* const name, char* const category, int const quantity, double const price) :
+Product::Product(string const name, string const category, int const quantity, double const price) :
 	name(name), category(category), quantity(quantity), price(price) {};
 
 Product::~Product() {
@@ -32,9 +25,9 @@ Product& Product::operator=(const Product& other)
 	return *this;
 };
 
-bool Product::operator==(const Product& o1) const// , const Product& o2)
+bool Product::operator==(const Product& o1) const
 {
-	if (this->name == o1.getName())
+	if (this->name.compare(o1.getName()) == 0)
 	{
 		return true;
 	};
@@ -43,15 +36,16 @@ bool Product::operator==(const Product& o1) const// , const Product& o2)
 
 void Product::print() const
 {
-	cout << name << ": " << category << ", " << quantity << ", " << price << endl;
+	cout << "name: " << name << ", category: " << category;
+	cout << ", quantity: " << quantity << ", price: " << price;
 }
 
-char* Product::getName() const
+string Product::getName() const
 {
 	return this->name;
 }
 
-char* Product::getCategory() const
+string Product::getCategory() const
 {
 	return this->category;
 }

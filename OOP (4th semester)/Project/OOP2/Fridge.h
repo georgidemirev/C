@@ -10,10 +10,10 @@ private:
 
 public:
 
-	Fridge(char* const name, char* const category, int const quantity,
+	Fridge(string const name, string const category, int const quantity,
 		double const price, double const height, double const watConsumption);
 
-	~Fridge();
+	virtual ~Fridge();
 
 	Fridge(const Fridge &other);
 
@@ -22,4 +22,6 @@ public:
 	double getHeight() const;
 
 	double getWatConsumption() const;
+
+	void print() const;
 };

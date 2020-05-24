@@ -145,7 +145,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector.h" />
     <ClInclude Include="Fridge.h" />
     <ClInclude Include="Laptop.h" />
     <ClInclude Include="Monitor.h" />

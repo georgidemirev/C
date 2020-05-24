@@ -1,13 +1,16 @@
 #pragma once
+#include <string>
+using namespace std;
 
+// This class is public so that there is option for a product to be 
+// added and that product will not have category
 
-// This class is public so that there is option for a product to be added and that product will not have category
 class Product {
 private:
 
-	char* name;
+	string name;
 
-	char* category;
+	string category;
 
 	int quantity;
 
@@ -17,23 +20,22 @@ public:
 
 	Product();
 
-	Product(char* const name, char* const category,
+	Product(string const name, string const category,
 		int const quantity, double const price);
 
-	~Product();
+	virtual ~Product();
 
 	Product(const Product &other);
 
 	Product& operator=(const Product& other);
 
-	bool operator==(const Product& o1) const; // , const Product& o2);
-	//inline bool operator==(const X& lhs, const X& rhs) { return cmp(lhs, rhs) == 0; }
+	bool operator==(const Product& o1) const;
 
-	void print() const;
+	virtual void print() const;
 
-	char* getName() const;
+	string getName() const;
 
-	char* getCategory() const;
+	string getCategory() const;
 
 	int getQuantity() const;
 

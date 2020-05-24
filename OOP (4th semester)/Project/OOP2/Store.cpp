@@ -3,62 +3,77 @@
 #include "Product.h"
 #include "Store.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-Store::Store(char* const name) :name(name) {}
+Store::Store(string const name) :name(name) {}
 
 Store::~Store() {
 };
 
 Store::Store(const Store &other) : name(other.getName()) {
-	Vector<User> vectorUsers(users);
+	vector<User*> vectorUsers(users);
 	this->users = vectorUsers;
-	Vector<Product> vectorProducts(products);
+	vector<Product*> vectorProducts(products);
 	this->products = vectorProducts;
 };
 
 Store& Store::operator=(const Store& other)
 {
 	this->name = other.getName();
-	Vector<User> vectorUsers(other.getUsers());
+	vector<User*> vectorUsers(other.getUsers());
 	this->users = vectorUsers;
-	Vector<Product> vectorProducts(other.getProducts());
+	vector<Product*> vectorProducts(other.getProducts());
 	this->products = vectorProducts;
 	return *this;
 };
 
-void Store::addProduct(Product const product)
+void Store::addProduct(Product* const product)
 {
-	products.push_back(product);
+	Product *newProduct = product;
+	products.push_back(newProduct);
 }
 
-User* Store::findUserByUsername(char* const username)
+void Store::removeProduct(string const name)
+{
+	Product *foundProduct = findProductByName(name);
+
+	if (foundProduct == NULL) return;
+
+	products.erase(remove(products.begin(), products.end(), foundProduct), products.end());
+
+	// deleting only when the product is removed from the store,
+	// not from the shopping carts of different users
+	delete foundProduct;
+}
+
+User* Store::findUserByUsername(string const username)
 {
 	for (int i = 0; i < users.size(); i++) {
-		if (users[i].getUsername() == username)
+		if ((*this->users[i]).getUsername() == username)
 		{
-			return &users[i];
+			return users[i];
 		}
 	}
 	return NULL; 
 }
 
-Product* Store::findProductByName(char* const name)
+Product* Store::findProductByName(string const name)
 {
 	for (int i = 0; i < products.size(); i++) {
-		if (products[i].getName() == name)
+		if ((*products[i]).getName() == name)
 		{
-			return &products[i];
+			return products[i];
 		}
 	}
 	return NULL;
 }
 
-bool Store::doesUserExistByUsername(char* const username) 
+bool Store::doesUserExistByUsername(string const username) 
 {
 	for (int i = 0; i < users.size(); i++) {
-		if (this->users[i].getUsername() == username)
+		if ((*this->users[i]).getUsername() == username)
 		{
 			return true;
 		}
@@ -69,7 +84,7 @@ bool Store::doesUserExistByUsername(char* const username)
 bool Store::doesUserExistById(int id)
 {
 	for (int i = 0; i < users.size(); i++) {
-		if (this->users[i].getId() == id)
+		if ((*this->users[i]).getId() == id)
 		{
 			return true;
 		}
@@ -77,10 +92,10 @@ bool Store::doesUserExistById(int id)
 	return false;
 }
 
-bool Store::doesProductExistByName(char* const name) 
+bool Store::doesProductExistByName(string const name) 
 {
 	for (int i = 0; i < users.size(); i++) {
-		if (this->products[i].getName() == name)
+		if ((*this->products[i]).getName() == name)
 		{
 			return true;
 		}
@@ -88,9 +103,11 @@ bool Store::doesProductExistByName(char* const name)
 	return false;
 }
 
-bool Store::hasEnoughMoney(User const user, double const money)
+bool Store::hasEnoughMoney(string const username, double const money)
 {
-	if (user.getMoneyInWallet() >= money) 
+	User *user = findUserByUsername(username);
+
+	if ((*user).getMoneyInWallet() >= money) 
 	{
 		return true;
 	}
@@ -100,71 +117,100 @@ bool Store::hasEnoughMoney(User const user, double const money)
 	}
 }
 
-void Store::registerUser(char* const username, char* const password, int const id)
+void Store::registerUser(string const username, string const password, int const id)
 {
-	User newUser(username, password, id);
-
-	for (int i = 0; i < users.size(); i++)
+	if (doesUserExistById(id) || doesUserExistByUsername(username))
 	{
-		users.push_back(newUser);
+		cout << endl << "user with that id or that username already exists" << endl;
 	}
+
+	User *newUser = new User(username, password, id);
+
+	users.push_back(newUser);
 }
 
-void Store::logIn(char* const username, char* const password)
+void Store::removeUser(string const username)
 {
-	//security will be implemented in the last version
+	User *foundUser = findUserByUsername(username);
+
+	if (foundUser == NULL) return;
+
+	users.erase(remove(users.begin(), users.end(), foundUser), users.end());
+
+	delete foundUser;
 }
 
-void Store::logOut()
+void Store::addProductToCart(string const username, string const product, int const quantity)
 {
-	//security will be implemented in the last version
-}
+	User *user = findUserByUsername(username);
 
-void Store::addProductToCart(User const user, char* const product, int const quantity)
-{
-	// pass user by username and find it afterwards in the last version
-	// validate if that product exists in the Products of the store
-	Product product1 = *findProductByName(product);
-	if (&product == NULL)return;
+	Product *productFromStore = findProductByName(product);
 
-	Product productForCart = product1;
-	productForCart.setQuantity(quantity);
+	if (productFromStore == NULL || user == NULL) return;
 
-	ShoppingCart cart = user.getShoppingCart();
-
-	user.getShoppingCart().addProduct(productForCart);
-}
-
-void Store::removeProductFromCart(User const user, char* const product)
-{
-	// next logic will be implemented in the next version
-	// should do this function in the CART !
-
-	Product product1 = *findProductByName(product);
-	if (&product == NULL)return;
-
-	user.getShoppingCart().removeProduct(product);
-}
-
-void Store::printCart(User const user) const
-{
-	int numberOfProductsInCart = user.getShoppingCart().getProducts().size();
-
-	for (int i = 0; i < numberOfProductsInCart; i++)
+	if ((*productFromStore).getQuantity() < quantity)
 	{
-		products[i].print();
+		cout << "Can not add more than available" << endl;
+		return;
 	}
+
+	Product *productForCart = new Product();
+
+	*productForCart = *productFromStore;
+
+	(*productForCart).setQuantity(quantity);
+
+	ShoppingCart *cart = (*user).getShoppingCart();
+
+	(*(*user).getShoppingCart()).addProduct(productForCart);
+
+	//remove the added quantity from the store
+	(*productFromStore).setQuantity((*productFromStore).getQuantity() - quantity);
 }
 
-void Store::buyEverythingFromCart(User const user)
+void Store::removeProductFromCart(string const username, string const product)
 {
-	double cartPrice = user.getShoppingCart().getCartPrice();
+	User *user = findUserByUsername(username);
 
-	if (hasEnoughMoney(user, cartPrice))
+	Product *productFromStore = findProductByName(product);
+
+	if (user == NULL || productFromStore == NULL)
 	{
-		double availableMoney = user.getWallet().getMoney();
-		user.getWallet().setMoney(availableMoney - cartPrice);
-		user.getShoppingCart().clearShoppingCart();
+		cout << "invalid username or product given" << endl;
+		return;
+	}
+
+	int quantity = (*(*(*user).getShoppingCart()).findProductByName(product)).getQuantity();
+
+	(*(*user).getShoppingCart()).removeProduct(product);
+
+	(*productFromStore).setQuantity((*productFromStore).getQuantity() + quantity);
+}
+
+void Store::printCart(string const username)
+{
+	User *user = findUserByUsername(username);
+
+	if (user == NULL)
+	{
+		cout << "invalid username given" << endl;
+		return;
+	}
+
+	(*(*user).getShoppingCart()).printAllProducts();
+}
+
+void Store::buyEverythingFromCart(string const username)
+{
+	User *user = findUserByUsername(username);
+
+	double cartPrice = (*(*user).getShoppingCart()).getCartPrice();
+
+	if (hasEnoughMoney((*user).getUsername(), cartPrice))
+	{
+		double availableMoney = (*(*user).getWallet()).getMoney();
+		(*(*user).getWallet()).setMoney(availableMoney - cartPrice);
+		(*(*user).getShoppingCart()).clearShoppingCart();
 	}
 }
 
@@ -173,17 +219,19 @@ void Store::printAllProducts() const
 {
 	for (int i = 0; i < products.size(); i++)
 	{
-		products[i].print();
+		(*products[i]).print();
+		cout << endl;
 	}
 }
 
-void Store::printProductsByCategory(char* const category) const
+void Store::printProductsByCategory(string const category) const
 {
 	for (int i = 0; i < products.size(); i++)
 	{
-		if (products[i].getCategory() == category)
+		if ((*products[i]).getCategory() == category)
 		{
-			products[i].print();
+			(*products[i]).print();
+			cout << endl;
 		}
 	}
 }
@@ -192,35 +240,37 @@ void Store::printProductsByPrice(double const price) const
 {
 	for (int i = 0; i < products.size(); i++)
 	{
-		if (products[i].getPrice() == price)
+		if ((*products[i]).getPrice() == price)
 		{
-			products[i].print();
+			(*products[i]).print();
+			cout << endl;
 		}
 	}
 }
 
-void Store::printProductsByName(char* const name) const
+void Store::printProductsByName(string const name) const
 {
 	for (int i = 0; i < products.size(); i++)
 	{
-		if (products[i].getName() == name)
+		if ((*products[i]).getName() == name)
 		{
-			products[i].print();
+			(*products[i]).print();
+			cout << endl;
 		}
 	}
 }
 
-char* Store::getName() const
+string Store::getName() const
 {
 	return this->name;
 }
 
-Vector<User> Store::getUsers() const
+vector<User*> Store::getUsers() const
 {
 	return this->users;
 }
 
-Vector<Product> Store::getProducts() const
+vector<Product*> Store::getProducts() const
 {
 	return this->products;
 }
